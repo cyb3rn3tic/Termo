@@ -1,4 +1,4 @@
-﻿namespace Termo.ConsoleApp;
+namespace Termo.ConsoleApp;
 
 class Program
 {
