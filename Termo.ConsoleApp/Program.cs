@@ -4,18 +4,17 @@ namespace Termo.ConsoleApp;
 
 class Program
 {
-    //Variaveis de apoio
+    //Variaveis de apoio "global"
     static string chutePalavra = "";
     static string palavraSecreta = "";
-    static int tentativas = 5;
-    static ConsoleColor[] corLetra = new ConsoleColor[5];
-    static char[] letraIgual = new char[5];
+    static char[] letraDoChute = new char[5];
     static void Main(string[] args)
     {
         SorteioPalavraSecreta();
+
         ExecucaoDoJogo();
+
         ResultadoDoJogo();
-        //Console.WriteLine($"Palavra secreta selecionada: {palavraSecreta}");
     }
     static string SorteioPalavraSecreta()
     {
@@ -27,12 +26,12 @@ class Program
         */
 
         //Lista de Palavras (5 Letras)
-        //string[] listaPalavras = [
-        //    "SAGAZ", "NOBRE", "ÉTICA", "MÚTUA", "TENAZ", "VÊNUS", "PLENO", "ÍNDOLE", "GERIR", "AUDAZ",
-        //    "CASTO", "FORTE", "PODER", "ÁUREO", "VIGOR", "SANAR", "GRAVE", "JUSTO", "IDEIA", "UNIÃO",
-        //    "POBRE", "MANSO", "ROCHA", "NOITE", "VALOR", "FALAR", "LUTAR", "TEMPO", "SONHO", "HONRA",
-        //];
-        palavraSecreta = "GERIR";//listaPalavras[new Random().Next(listaPalavras.Length)];
+        string[] listaPalavras = [
+            "SAGAZ", "NOBRE", "ÉTICA", "MÚTUA", "TENAZ", "VÊNUS", "PLENO", "ÍNDOLE", "GERIR", "AUDAZ",
+            "CASTO", "FORTE", "PODER", "ÁUREO", "VIGOR", "SANAR", "GRAVE", "JUSTO", "IDEIA", "UNIÃO",
+            "POBRE", "MANSO", "ROCHA", "NOITE", "VALOR", "FALAR", "LUTAR", "TEMPO", "SONHO", "HONRA",
+        ];
+        palavraSecreta = listaPalavras[new Random().Next(listaPalavras.Length)];
         return palavraSecreta;
     }
     static void ExecucaoDoJogo()
@@ -47,55 +46,55 @@ class Program
         Esse retorno ajuda o jogador a formular a próxima tentativa.
         */
 
+        ConsoleColor[] corLetra = new ConsoleColor[5];
+        int tentativas = 5;
+
         do
         {
             Console.Write("Digite uma palavra de 5 letras para o chute: ");
             chutePalavra = (Console.ReadLine() ?? "").ToUpper();
 
-            for (int i = 0; i < palavraSecreta.Length; i++)
+            if (chutePalavra == "" || chutePalavra.Length != 5)
             {
-                if (chutePalavra[i] == palavraSecreta[i])
+                Console.WriteLine("\n--------------------------");
+                Console.WriteLine("Digite uma palavra válida!");
+                Console.WriteLine("--------------------------\n");
+            }
+            else
+            {
+                for (int i = 0; i < palavraSecreta.Length; i++)
                 {
-                    letraIgual[i] = chutePalavra[i];
-                    corLetra[i] = ConsoleColor.Green;
-                    //Console.ResetColor();
-                }
-                else
-                {
-                    if(palavraSecreta.Contains(chutePalavra[i]))
+                    if (chutePalavra[i] == palavraSecreta[i])
                     {
-                        letraIgual[i] = chutePalavra[i];
-                        corLetra[i] = ConsoleColor.Yellow;
+                        letraDoChute[i] = chutePalavra[i];
+                        corLetra[i] = ConsoleColor.Green;
                     }
-                    /*
-                    for (int n = 0; n < palavraSecreta.Length; n++)
+                    else
                     {
-                        if (chutePalavra[i] == palavraSecreta[n])
+                        if (palavraSecreta.Contains(chutePalavra[i]))
                         {
-                            letraIgual[i] = chutePalavra[i];
+                            letraDoChute[i] = chutePalavra[i];
                             corLetra[i] = ConsoleColor.Yellow;
                         }
-                        else 
+                        else
                         {
-                            letraIgual[i] = chutePalavra[i];
+                            letraDoChute[i] = chutePalavra[i];
                             corLetra[i] = ConsoleColor.Red;
                         }
-                       
-                    } */
+                    }
                 }
+
+                tentativas--;
+                Console.WriteLine($"Tentativas restantes: {tentativas}");
+
+                for (int i = 0; i < palavraSecreta.Length; i++)
+                {
+                    Console.ForegroundColor = corLetra[i];
+                    Console.Write(letraDoChute[i]);
+                    Console.ResetColor();
+                }
+                Console.WriteLine("\n");
             }
-            tentativas--;
-            Console.WriteLine($"Tentativas restantes: {tentativas}");
-
-            for (int i = 0; i < palavraSecreta.Length; i++)
-            {
-                Console.ForegroundColor = corLetra[i];
-                Console.Write(letraIgual[i]);
-                Console.ResetColor();
-            }
-            Console.WriteLine("\n");
-
-
         } while (chutePalavra != palavraSecreta && tentativas > 0);
         return;
     }
