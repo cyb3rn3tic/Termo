@@ -10,11 +10,20 @@ class Program
     static char[] letraDoChute = new char[5];
     static void Main(string[] args)
     {
+        Cabecalho();
+        
         SorteioPalavraSecreta();
 
         ExecucaoDoJogo();
 
         ResultadoDoJogo();
+    }
+    static void Cabecalho()
+    {
+        Console.WriteLine("--------------------------");
+        Console.WriteLine("!!JOGO DO TERMO!!");
+        Console.WriteLine("--------------------------\n");
+        return;
     }
     static string SorteioPalavraSecreta()
     {
@@ -27,8 +36,8 @@ class Program
 
         //Lista de Palavras (5 Letras)
         string[] listaPalavras = [
-            "SAGAZ", "NOBRE", "ÉTICA", "MÚTUA", "TENAZ", "VÊNUS", "PLENO", "ÍNDOLE", "GERIR", "AUDAZ",
-            "CASTO", "FORTE", "PODER", "ÁUREO", "VIGOR", "SANAR", "GRAVE", "JUSTO", "IDEIA", "UNIÃO",
+            "SAGAZ", "NOBRE", "ETICA", "MUTUA", "TENAZ", "VENUS", "PLENO", "INDOLE", "GERIR", "AUDAZ",
+            "CASTO", "FORTE", "PODER", "AUREO", "VIGOR", "SANAR", "GRAVE", "JUSTO", "IDEIA", "UNIAO",
             "POBRE", "MANSO", "ROCHA", "NOITE", "VALOR", "FALAR", "LUTAR", "TEMPO", "SONHO", "HONRA",
         ];
         palavraSecreta = listaPalavras[new Random().Next(listaPalavras.Length)];
