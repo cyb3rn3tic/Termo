@@ -1,8 +1,20 @@
-namespace Termo.ConsoleApp;
+﻿namespace Termo.ConsoleApp;
 
 class Program
 {
+    //Variaveis de apoio
+    static string chutePalavra = "";
+    static string palavraSecreta = "";
+    static int tentativas = 5;
+    static ConsoleColor[] corLetra = new ConsoleColor[5];
     static void Main(string[] args)
+    {
+        SorteioPalavraSecreta();
+        ExecucaoDoJogo();
+        ResultadoDoJogo();
+        //Console.WriteLine($"Palavra secreta selecionada: {palavraSecreta}");
+    }
+    static string SorteioPalavraSecreta()
     {
         /*    
         1.Escolha da Palavra
@@ -12,20 +24,16 @@ class Program
         */
 
         //Lista de Palavras (5 Letras)
-        string[] palavrasCincoLetras = [
-            "SAGAZ", "NOBRE", "ÉTICA", "MÚTUA", "TENAZ", "VÊNIA", "PLENO", "ÍNDOLE", "GERIR", "AUDAZ", 
-            "CASTO", "FORTE", "PODER", "ÁUREO", "VIGOR", "SANAR", "GRAVE", "JUSTO", "IDEIA", "UNIÃO", 
+        string[] listaPalavras = [
+            "SAGAZ", "NOBRE", "ÉTICA", "MÚTUA", "TENAZ", "VÊNIA", "PLENO", "ÍNDOLE", "GERIR", "AUDAZ",
+            "CASTO", "FORTE", "PODER", "ÁUREO", "VIGOR", "SANAR", "GRAVE", "JUSTO", "IDEIA", "UNIÃO",
             "POBRE", "MANSO", "ROCHA", "NOITE", "VALOR", "FALAR", "LUTAR", "TEMPO", "SONHO", "HONRA",
         ];
-
-        string palavraSecreta = palavrasCincoLetras[new Random().Next(palavrasCincoLetras.Length)];
-
-        //Console.WriteLine($"Palavra secreta selecionada: {palavraSecreta}");
-
-        string chutePalavra;
-        char[] letraIgual = new char[palavraSecreta.Length];
-        ConsoleColor[] corLetra = new ConsoleColor[palavraSecreta.Length];
-        int tentativas = 5;
+        palavraSecreta = listaPalavras[new Random().Next(listaPalavras.Length)];
+        return palavraSecreta;
+    }
+    static void ExecucaoDoJogo()
+    {
         /*
         2. Feedback Visual com Cores
         Após cada tentativa, o jogo exibe a palavra digitada novamente, destacando
@@ -39,7 +47,9 @@ class Program
         do
         {
             Console.Write("Digite uma palavra de 5 letras para o chute: ");
-            chutePalavra = Console.ReadLine() ?? "";
+            chutePalavra = (Console.ReadLine() ?? "").ToUpper();
+            
+            char[] letraIgual = new char[palavraSecreta.Length];
 
             for (int i = 0; i < palavraSecreta.Length; i++)
             {
@@ -77,7 +87,13 @@ class Program
             }
             Console.WriteLine("\n");
 
-            /*
+
+        } while (chutePalavra != palavraSecreta && tentativas > 0);
+        return;
+    }
+    static void ResultadoDoJogo()
+    {
+        /*
             3. Condição de Vitória
             ● Se a palavra digitada for exatamente igual à palavra escolhida, o jogador
             vence.
@@ -89,8 +105,7 @@ class Program
             perde.
             ● O jogo exibe uma mensagem de derrota e aguarda o jogador pressionar
             ENTER para sair.
-            */
-        } while (chutePalavra != palavraSecreta && tentativas > 0);
+        */
 
         if (chutePalavra == palavraSecreta)
         {
@@ -104,9 +119,11 @@ class Program
         {
             Console.WriteLine("\n------------------------------------------");
             Console.WriteLine("Que pena! Você gastou todas as tentativas!");
+            Console.WriteLine($"A palavra secreta era: {palavraSecreta}");
             Console.WriteLine("------------------------------------------");
             Console.WriteLine("Digite enter para sair!");
             Console.ReadLine();
         }
+        return;
     }
 }
