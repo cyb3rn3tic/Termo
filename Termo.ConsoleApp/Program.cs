@@ -12,14 +12,15 @@ class Program
         */
 
         //Lista de Palavras (5 Letras)
-        //string[] palavrasCincoLetras = ["Sagaz", "Nobre", "Ética", "Mútua", "Tenaz", "Vênia", "Pleno", "Índole", "Gerir", "Audaz", "Casto",
-        //"Forte", "Poder", "Áureo", "Vigor", "Sanar", "Grave", "Justo", "Ideia", "União", "Pobre", "Manso", "Rocha", "Noite", "Valor", "Falar",
-        //"Lutar", "Tempo", "Sonho", "Honra"];
+        string[] palavrasCincoLetras = [
+            "SAGAZ", "NOBRE", "ÉTICA", "MÚTUA", "TENAZ", "VÊNIA", "PLENO", "ÍNDOLE", "GERIR", "AUDAZ", 
+            "CASTO", "FORTE", "PODER", "ÁUREO", "VIGOR", "SANAR", "GRAVE", "JUSTO", "IDEIA", "UNIÃO", 
+            "POBRE", "MANSO", "ROCHA", "NOITE", "VALOR", "FALAR", "LUTAR", "TEMPO", "SONHO", "HONRA",
+        ];
 
-        //char[] palavraSecreta = new char[palavrasCincoLetras.Length];
-        string palavraSecreta = "Ética"; //palavrasCincoLetras[new Random().Next(palavrasCincoLetras.Length)];
+        string palavraSecreta = palavrasCincoLetras[new Random().Next(palavrasCincoLetras.Length)];
 
-        Console.WriteLine($"Palavra secreta selecionada: {palavraSecreta}");
+        //Console.WriteLine($"Palavra secreta selecionada: {palavraSecreta}");
 
         string chutePalavra;
         char[] letraIgual = new char[palavraSecreta.Length];
@@ -67,21 +68,28 @@ class Program
             }
             tentativas--;
             Console.WriteLine($"Tentativas restantes: {tentativas}");
-            
+
             for (int i = 0; i < palavraSecreta.Length; i++)
             {
                 Console.ForegroundColor = corLetra[i];
                 Console.Write(letraIgual[i]);
                 Console.ResetColor();
-            } Console.WriteLine("\n");      
+            }
+            Console.WriteLine("\n");
 
-        /*
-        3. Condição de Vitória
-        ● Se a palavra digitada for exatamente igual à palavra escolhida, o jogador
-        vence.
-        ● O jogo exibe uma mensagem de sucesso e aguarda o jogador pressionar
-        ENTER para sair.
-        */
+            /*
+            3. Condição de Vitória
+            ● Se a palavra digitada for exatamente igual à palavra escolhida, o jogador
+            vence.
+            ● O jogo exibe uma mensagem de sucesso e aguarda o jogador pressionar
+            ENTER para sair.
+
+            4. Condição de Derrota
+            ● Se o jogador não acertar a palavra antes do fim das tentativas (5), ele
+            perde.
+            ● O jogo exibe uma mensagem de derrota e aguarda o jogador pressionar
+            ENTER para sair.
+            */
         } while (chutePalavra != palavraSecreta && tentativas > 0);
 
         if (chutePalavra == palavraSecreta)
@@ -97,6 +105,8 @@ class Program
             Console.WriteLine("\n------------------------------------------");
             Console.WriteLine("Que pena! Você gastou todas as tentativas!");
             Console.WriteLine("------------------------------------------");
+            Console.WriteLine("Digite enter para sair!");
+            Console.ReadLine();
         }
     }
 }
